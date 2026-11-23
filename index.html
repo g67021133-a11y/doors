@@ -6,14 +6,38 @@
 <style>
 :root{--bg:#0d0b16;--panel:#171423;--panel2:#201b30;--line:#302943;--text:#f4f0ff;--muted:#a39ab7;--purple:#9a6bff;--pink:#ed68c8;--cyan:#56d8e8;--green:#70e0ad;--shadow:0 18px 55px #0005}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -20%,#39245e 0,transparent 42%),var(--bg);color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}button,input,select{font:inherit}button{cursor:pointer;color:inherit;border:1px solid var(--line);background:#282139;border-radius:11px;padding:10px 14px;transition:.18s}button:hover{border-color:var(--purple);transform:translateY(-1px)}button:active{transform:scale(.98)}.app{max-width:1400px;margin:auto;padding:22px clamp(12px,3vw,34px) 42px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--purple),var(--pink));display:grid;place-items:center;font-size:22px;box-shadow:0 8px 25px #9a6bff55}.brand h1{font-size:20px;letter-spacing:2px;margin:0}.brand small{color:var(--muted);display:block;font-size:10px;letter-spacing:2.5px}.topright{display:flex;align-items:center;gap:9px}.wallet{border:1px solid #554172;background:#211a31;padding:9px 13px;border-radius:12px;color:#f5d879;font-weight:700}.pro{background:linear-gradient(110deg,#8051e8,#d05cb8);border:0;font-weight:800}.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:18px}.maincol,.sidecol{display:grid;gap:18px;align-content:start}.panel{background:linear-gradient(160deg,#1a1627,#14111e);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}.panelhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.panelhead h2{font-size:15px;margin:0}.eyebrow{font-size:10px;letter-spacing:1.8px;color:var(--muted);text-transform:uppercase}.transport{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.play{background:linear-gradient(135deg,var(--purple),#7045c8);border:0;font-weight:800;min-width:94px}.stop{background:#2b2439}.control{display:flex;align-items:center;gap:8px;background:#100e19;border:1px solid var(--line);padding:7px 10px;border-radius:11px;color:var(--muted)}.control input{width:75px;accent-color:var(--purple)}.control strong{color:var(--text);min-width:28px}.transport .spacer{flex:1}.tracklist{display:grid;gap:9px}.track{display:grid;grid-template-columns:115px minmax(0,1fr);gap:12px;align-items:center;background:#100e19;border:1px solid #282237;border-radius:12px;padding:10px}.trackname{display:flex;align-items:center;gap:8px;font-weight:700;font-size:12px}.dot{width:9px;height:9px;border-radius:50%;background:var(--track)}.trackname small{display:block;color:var(--muted);font-weight:400;font-size:10px}.steps{display:grid;grid-template-columns:repeat(16,minmax(10px,1fr));gap:5px}.step{padding:0;aspect-ratio:1;border-radius:5px;background:#282337;border:1px solid #39314b;min-width:0}.step:nth-child(4n+1){margin-left:3px}.step.active{background:var(--track);border-color:var(--track);box-shadow:0 0 12px color-mix(in srgb,var(--track),transparent 55%)}.step.playing{outline:2px solid #fff;outline-offset:2px}.step.active.playing{filter:brightness(1.3)}.legend{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin:12px 2px 0}.ai-card{background:linear-gradient(135deg,#241a3d,#25182f);border:1px solid #5a3b79}.ai-card p{color:#c4b8d7;margin:5px 0 14px;font-size:12px}.airow{display:flex;gap:8px}.airow input{flex:1;min-width:0;background:#100d19;border:1px solid #514066;border-radius:10px;padding:11px;color:var(--text);outline:none}.airow input:focus{border-color:var(--purple)}.generate{background:linear-gradient(110deg,#925fff,#d65fbd);border:0;font-weight:800}.tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.tag{font-size:10px;color:#d3c4ef;border:1px solid #58456e;border-radius:20px;padding:5px 9px}.sidecol .panel{padding:16px}.meter{height:7px;background:#302940;border-radius:8px;overflow:hidden;margin:10px 0}.meter span{display:block;height:100%;width:42%;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:8px}.statrow{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.statrow strong{color:var(--text)}.coin{color:#f4d36f}.actionlist{display:grid;gap:8px}.actionlist button{text-align:left;display:flex;align-items:center;gap:10px;background:#100e19}.actionlist button span{flex:1}.actionlist small{color:var(--muted)}.mini{font-size:11px;color:var(--muted)}.footer{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:17px;color:var(--muted);font-size:11px}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#29213a;border:1px solid #7153a0;border-radius:12px;padding:11px 16px;box-shadow:var(--shadow);transition:.25s;z-index:5}.toast.show{opacity:1;transform:translate(-50%,0)}.modalback{position:fixed;inset:0;background:#05040bd9;display:none;place-items:center;padding:18px;z-index:4}.modalback.open{display:grid}.modal{width:min(420px,100%);background:#1a1627;border:1px solid #554172;border-radius:18px;padding:22px;box-shadow:var(--shadow)}.modal h3{margin:0 0 8px}.modal p{color:var(--muted);font-size:12px}.modalactions{display:flex;gap:8px;margin-top:16px}.modalactions button{flex:1}.primary{background:linear-gradient(110deg,#925fff,#d65fbd);border:0;font-weight:800}.hidden{display:none!important}
 @media(max-width:900px){.layout{grid-template-columns:1fr}.sidecol{grid-template-columns:repeat(2,minmax(0,1fr))}.track{grid-template-columns:95px minmax(0,1fr)}.steps{gap:4px}}@media(max-width:560px){.app{padding:14px 10px 30px}.top{align-items:flex-start}.brand h1{font-size:17px}.topright{gap:6px}.wallet{font-size:11px;padding:8px}.pro{font-size:11px;padding:9px}.panel{padding:13px;border-radius:15px}.track{grid-template-columns:1fr;gap:8px}.trackname{font-size:11px}.steps{gap:3px}.step{border-radius:4px}.sidecol{grid-template-columns:1fr}.transport{gap:7px}.control{padding:6px 8px}.control input{width:55px}.airow{flex-direction:column}.footer{align-items:flex-start;flex-direction:column}}
+
+.ai-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}
+.ai-controls label{display:grid;gap:6px;color:#d9cde9;font-size:11px}
+.ai-controls select{width:100%;min-width:0;background:#100d19;color:var(--text);border:1px solid #514066;border-radius:10px;padding:10px}
+.range-row{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.range-row label{grid-template-columns:1fr auto}
+.range-row input{grid-column:1/-1;width:100%;accent-color:var(--purple)}
+.range-row b{color:#fff}
+.ai-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.ai-actions button{font-size:11px;padding:8px 10px;background:#171225}
+.ai-status{margin-top:12px;padding:10px 12px;border:1px solid #514066;border-radius:10px;background:#100d19;color:#cbbbe1;font-size:11px}
+@media(max-width:650px){.ai-controls{grid-template-columns:1fr 1fr}.ai-controls label:nth-child(3){grid-column:1/-1}.range-row{grid-template-columns:1fr}}
 </style></head>
 <body><div class="app">
 <header class="top"><div class="brand"><div class="logo">♫</div><div><h1>BEATFORGE</h1><small>MUSIC STUDIO</small></div></div><div class="topright"><div class="wallet">◈ <span id="coins">1 250</span> <small>BC</small></div><button class="pro" id="proBtn">✦ GET PRO</button></div></header>
 <div class="layout"><main class="maincol">
 <section class="panel"><div class="panelhead"><div><div class="eyebrow">Your workspace</div><h2>Untitled beat <span class="mini">· Draft</span></h2></div><button id="renameBtn">✎ Rename</button></div><div class="transport"><button class="play" id="playBtn">▶ Play</button><button class="stop" id="stopBtn">■ Stop</button><div class="control">BPM <input id="bpm" type="range" min="60" max="180" value="120"><strong id="bpmVal">120</strong></div><div class="control">VOL <input id="volume" type="range" min="0" max="100" value="70"><strong id="volVal">70%</strong></div><div class="spacer"></div><button id="clearBtn">Clear</button></div></section>
 <section class="panel"><div class="panelhead"><div><div class="eyebrow">Step sequencer</div><h2>Pattern editor</h2></div><span class="mini">16 STEPS · 6 TRACKS</span></div><div class="tracklist" id="tracklist"></div><div class="legend"><span>1 ─── 4 ─── 8 ─── 12 ─── 16</span><span>1 BAR</span></div></section>
-<section class="panel ai-card"><div class="panelhead"><div><div class="eyebrow">✦ Creative assistant</div><h2>AI Composer <span class="tag">PRO</span></h2></div><span>✧</span></div><p>Опиши звучание — BEATFORGE соберёт стартовый паттерн. Это концептуальная локальная генерация, без подключения к онлайн-ИИ.</p><div class="airow"><input id="prompt" placeholder="Например: мрачный phonk с мощным басом..."><button class="generate" id="generateBtn">✦ Generate</button></div><div class="tagrow"><span class="tag">Phonk</span><span class="tag">Lo-fi</span><span class="tag">Trap</span><span class="tag">Synthwave</span><span class="tag">Dark</span></div></section>
-<div class="footer"><span>BEATFORGE CONCEPT BUILD · v0.1</span><span>Autosave is local to this browser</span></div>
+<section class="panel ai-card">
+<div class="panelhead"><div><div class="eyebrow">✦ Creative assistant</div><h2>AI Composer <span class="tag">STUDIO</span></h2></div><span>✧</span></div>
+<p>Собирай разные идеи: жанр, настроение, энергия и сложность влияют на ритм. Локальный генератор без онлайн-ИИ.</p>
+<div class="ai-controls">
+<label>Жанр<select id="aiGenre"><option value="phonk">Phonk</option><option value="trap">Trap</option><option value="drill">Drill</option><option value="hiphop">Hip-Hop</option><option value="house">House</option><option value="edm">EDM</option><option value="dnb">Drum & Bass</option><option value="dubstep">Dubstep</option><option value="lofi">Lo-fi</option><option value="synthwave">Synthwave</option><option value="ambient">Ambient</option><option value="techno">Techno</option></select></label>
+<label>Настроение<select id="aiMood"><option value="dark">Мрачное</option><option value="energetic">Энергичное</option><option value="chill">Спокойное</option><option value="epic">Эпичное</option><option value="happy">Позитивное</option><option value="mysterious">Загадочное</option></select></label>
+<label>Структура<select id="aiStructure"><option value="drop">Drop / мощный дроп</option><option value="groove">Groove / кач</option><option value="melodic">Melodic / мелодичный</option><option value="minimal">Minimal / минимализм</option><option value="cinematic">Cinematic / киношный</option></select></label>
+<div class="range-row"><label>Энергия <b id="energyVal">75%</b><input id="aiEnergy" type="range" min="10" max="100" value="75"></label><label>Сложность <b id="complexityVal">60%</b><input id="aiComplexity" type="range" min="10" max="100" value="60"></label></div>
+<div class="airow"><input id="prompt" placeholder="Дополнительно: грязный бас, воздушные пады..."><button class="generate" id="generateBtn">✦ Создать трек</button></div>
+<div class="ai-actions"><button id="variationBtn">⟳ Другая версия</button><button id="continueBtn">＋ Продолжить</button><button id="remixBtn">⚡ Remix</button><button id="melodyBtn">♫ Новая мелодия</button></div>
+<div class="tagrow"><span class="tag">12 жанров</span><span class="tag">6 настроений</span><span class="tag">5 подходов</span><span class="tag">Случайные вариации</span></div>
+<div class="ai-status" id="aiStatus">Готов к созданию. Меняй параметры — результат будет отличаться.</div>
+</section>
+<div class="footer"><span>BEATFORGE STUDIO BUILD · v0.2</span><span>Autosave is local to this browser</span></div>
 </main><aside class="sidecol">
 <section class="panel"><div class="panelhead"><h2>◈ BeatCoins</h2><span class="coin">✦</span></div><div class="statrow"><span>Ваш баланс</span><strong class="coin"><span id="coinSide">1 250</span> BC</strong></div><div class="meter"><span></span></div><div class="mini">Зарабатывай BeatCoins за задания и создание треков.</div><button style="width:100%;margin-top:13px" id="dailyBtn">🎁 Daily reward · +100 BC</button></section>
 <section class="panel"><div class="panelhead"><h2>Studio tools</h2><span class="eyebrow">TOOLS</span></div><div class="actionlist"><button id="saveBtn">💾 <span>Save project</span><small>JSON</small></button><button id="loadBtn">📂 <span>Open project</span><small>JSON</small></button><button id="exportBtn">⬇ <span>Export audio</span><small>WAV demo</small></button><button id="shopBtn">🛍 <span>Sound shop</span><small>SOON</small></button></div><input id="fileInput" type="file" accept=".json,application/json" class="hidden"></section>
@@ -32,9 +56,79 @@ function tick(){stepNow=(stepNow+1)%16;document.querySelectorAll('.step').forEac
 function play(){audioInit();if(playing)return;playing=true;$('playBtn').textContent='Ⅱ Pause';const ms=60000/(+$('bpm').value)/4;tick();timer=setInterval(tick,ms)}function stop(){playing=false;clearInterval(timer);timer=null;stepNow=-1;$('playBtn').textContent='▶ Play';document.querySelectorAll('.step').forEach(b=>b.classList.remove('playing'))}
 $('playBtn').onclick=()=>playing? (stop(),$('playBtn').textContent='▶ Play'):play();$('stopBtn').onclick=stop;$('bpm').oninput=e=>{$('bpmVal').textContent=e.target.value;if(playing){stop();play()}};$('volume').oninput=e=>{$('volVal').textContent=e.target.value+'%';if(master)master.gain.value=+e.target.value/100*.35};
 $('clearBtn').onclick=()=>{tracks.forEach(t=>t.steps=[]);render();toast('Pattern cleared')};$('renameBtn').onclick=()=>{const n=prompt('Название проекта:',projectName);if(n?.trim()){projectName=n.trim();document.querySelector('.panelhead h2').innerHTML=projectName+' <span class="mini">· Draft</span>'}};
-function snapshot(){return {app:'BEATFORGE',version:1,name:projectName,bpm:+$('bpm').value,volume:+$('volume').value,tracks:tracks.map(t=>({name:t.name,steps:t.steps}))}}
+function snapshot(){return {app:'BEATFORGE',version:2,name:projectName,bpm:+$('bpm').value,volume:+$('volume').value,tracks:tracks.map(t=>({name:t.name,steps:t.steps}))}}
 $('saveBtn').onclick=()=>{const blob=new Blob([JSON.stringify(snapshot(),null,2)],{type:'application/json'});download(blob,(projectName.replace(/[^a-z0-9-_]/gi,'_')||'beatforge')+'.json');toast('Project saved')};function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href)}$('loadBtn').onclick=()=>$('fileInput').click();$('fileInput').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!Array.isArray(d.tracks)||d.tracks.length!==6)throw Error();d.tracks.forEach((t,i)=>tracks[i].steps=(t.steps||[]).filter(x=>Number.isInteger(x)&&x>=0&&x<16));$('bpm').value=d.bpm||120;$('bpmVal').textContent=$('bpm').value;$('volume').value=d.volume||70;$('volVal').textContent=$('volume').value+'%';projectName=d.name||'Imported beat';render();toast('Project loaded')}catch{toast('Invalid project file')}e.target.value=''};
-$('generateBtn').onclick=()=>{const p=$('prompt').value.toLowerCase();let style=p.includes('lo-fi')||p.includes('lofi')?1:p.includes('trap')?2:p.includes('phonk')?3:p.includes('synth')?4:0;const patterns=[[0,4,8,12],[0,6,8,14],[0,3,8,11],[0,2,7,8,10,15],[0,5,7,8,13,15]];tracks.forEach((t,i)=>{const base=patterns[(i+style)%patterns.length];t.steps=base.filter((v,j)=>((j+i+style)%3!==1)||i===0)});tracks[1].steps=[2,6,10,14,1,5,9,13];tracks[3].steps=[0,3,7,8,11,15];render();beats++;$('beatCount').textContent=beats;toast('Новый паттерн создан!');};
+
+const genreProfiles={
+ phonk:{bpm:150,kick:[0,3,7,8,11,14],hat:[0,2,4,6,8,10,12,14],clap:[4,12],bass:[0,3,6,8,11,14],mel:[0,5,7,10,13],fx:[7,15]},
+ trap:{bpm:140,kick:[0,5,8,11],hat:[0,2,3,6,8,10,11,14],clap:[4,12],bass:[0,3,8,11],mel:[0,3,7,10,14],fx:[6,15]},
+ drill:{bpm:142,kick:[0,3,7,10,13],hat:[0,2,4,5,8,10,12,14],clap:[4,12],bass:[0,3,7,10,13],mel:[0,6,9,13],fx:[7,14]},
+ hiphop:{bpm:92,kick:[0,6,8,11],hat:[2,6,10,14],clap:[4,12],bass:[0,6,8],mel:[0,4,7,11],fx:[15]},
+ house:{bpm:124,kick:[0,4,8,12],hat:[2,6,10,14],clap:[4,12],bass:[0,3,4,7,8,11,12,15],mel:[2,6,10,14],fx:[7,15]},
+ edm:{bpm:128,kick:[0,4,8,12],hat:[2,6,10,14],clap:[4,12],bass:[0,2,4,6,8,10,12,14],mel:[0,3,7,8,11,15],fx:[3,7,11,15]},
+ dnb:{bpm:174,kick:[0,5,8,11],hat:[0,2,4,6,8,10,12,14],clap:[4,12],bass:[0,3,5,8,11,13],mel:[0,4,7,9,12,15],fx:[7,14]},
+ dubstep:{bpm:140,kick:[0,7,8,14],hat:[2,6,10,14],clap:[4,12],bass:[0,3,7,8,11,14],mel:[0,5,8,13],fx:[3,7,11,15]},
+ lofi:{bpm:78,kick:[0,7,10],hat:[2,6,10,14],clap:[4,12],bass:[0,7,10],mel:[0,4,7,11],fx:[6,15]},
+ synthwave:{bpm:110,kick:[0,4,8,12],hat:[2,6,10,14],clap:[4,12],bass:[0,4,7,8,12,15],mel:[0,3,5,8,10,13],fx:[0,8,15]},
+ ambient:{bpm:82,kick:[0,8],hat:[4,12],clap:[12],bass:[0,8],mel:[0,5,9,13],fx:[2,6,10,14]},
+ techno:{bpm:132,kick:[0,4,8,12],hat:[2,6,10,14],clap:[4,12],bass:[0,2,4,6,8,10,12,14],mel:[3,7,11,15],fx:[7,15]}
+};
+let lastAiGenre='phonk',aiSeed=0;
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+function shuffledPick(arr,count){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,count).sort((x,y)=>x-y)}
+function makeAi(mode='full'){
+ const genre=$('aiGenre').value,mood=$('aiMood').value,structure=$('aiStructure').value;
+ const energy=+$('aiEnergy').value/100,complexity=+$('aiComplexity').value/100,prompt=$('prompt').value.toLowerCase();
+ const profile=genreProfiles[genre]||genreProfiles.phonk;
+ const moodBoost={dark:-1,energetic:2,chill:-2,epic:1,happy:1,mysterious:-1}[mood]||0;
+ const density=clamp(.35+complexity*.55+energy*.18, .25, 1);
+ const bases=[profile.kick,profile.hat,profile.clap,profile.bass,profile.mel,profile.fx];
+ const next=bases.map((base,i)=>{
+   let arr=[...base];
+   const target=Math.max(1,Math.round((base.length+(i===1?3:0))*density));
+   if(arr.length>target)arr=shuffledPick(arr,target);
+   const extra=Math.round((complexity*.25+energy*.2)* (i===1?5:i===4?4:3));
+   const candidates=Array.from({length:16},(_,n)=>n).filter(n=>!arr.includes(n));
+   arr=[...arr,...shuffledPick(candidates,Math.min(extra,candidates.length))];
+   if(mode==='variation'||mode==='remix'){
+     arr=arr.filter(()=>Math.random()>(mode==='remix'?.25:.13));
+     const pool=Array.from({length:16},(_,n)=>n).filter(n=>!arr.includes(n));
+     arr=[...arr,...shuffledPick(pool,Math.min(mode==='remix'?5:3,pool.length))];
+   }
+   if(mode==='continue'){
+     arr=arr.map(n=>(n+ (i%2?1:2))%16);
+     if(i===4||i===5)arr=[...arr,...shuffledPick(Array.from({length:16},(_,n)=>n).filter(n=>!arr.includes(n)),2)];
+   }
+   if(structure==='minimal'&&i!==0)arr=arr.filter((_,j)=>j%2===0);
+   if(structure==='cinematic'&&i===5)arr=[0,3,7,11,14,15];
+   if(structure==='melodic'&&i===4)arr=[...arr,1,5,8,12].filter((n,j,a)=>a.indexOf(n)===j);
+   if(mood==='chill'&&i===0)arr=arr.filter(n=>n%4===0);
+   if(mood==='energetic'&&i===1)arr=[...arr,1,3,5,7,9,11,13,15];
+   if(prompt.includes('без удар')&&i<3)arr=[];
+   if(prompt.includes('больше мелод')&&i===4)arr=[...arr,1,3,6,8,11,14];
+   return [...new Set(arr)].sort((a,b)=>a-b);
+ });
+ tracks.forEach((t,i)=>t.steps=next[i]);
+ if(mode==='full'&&$('bpm').value==='120')$('bpm').value=profile.bpm;
+ $('bpmVal').textContent=$('bpm').value;
+ if(playing)stop();
+ render();
+ beats++;$('beatCount').textContent=beats;
+ lastAiGenre=genre;aiSeed++;
+ const labels={full:'Создана новая композиция',variation:'Создана альтернативная версия',continue:'Паттерн продолжен и развит',remix:'Сделан ремикс',melody:'Обновлена мелодическая линия'};
+ $('aiStatus').textContent=`${labels[mode]} · ${genre.toUpperCase()} · ${mood} · энергия ${Math.round(energy*100)}% · версия ${aiSeed}`;
+ toast(labels[mode]+'!');
+}
+$('generateBtn').onclick=()=>makeAi('full');
+$('variationBtn').onclick=()=>makeAi('variation');
+$('continueBtn').onclick=()=>makeAi('continue');
+$('remixBtn').onclick=()=>makeAi('remix');
+$('melodyBtn').onclick=()=>{
+ const g=$('aiGenre').value,p=genreProfiles[g]||genreProfiles.phonk;
+ tracks[4].steps=shuffledPick([...p.mel,...Array.from({length:16},(_,n)=>n)],clamp(Math.round(4+(+$('aiComplexity').value)/12),4,12));
+ render();$('aiStatus').textContent='Новая мелодическая линия создана · '+g.toUpperCase();toast('Мелодия обновлена!');
+};
+['aiEnergy','aiComplexity'].forEach((id,i)=>$(id).oninput=e=>$(i?'complexityVal':'energyVal').textContent=e.target.value+'%');
 $('dailyBtn').onclick=()=>{if(daily){toast('Daily reward уже получен');return}daily=true;coins+=100;updateCoins();$('dailyBtn').textContent='✓ Reward claimed';toast('+100 BeatCoins!')};function updateCoins(){$('coins').textContent=coins.toLocaleString('en-US').replace(/,/g,' ');$('coinSide').textContent=$('coins').textContent}
 function modal(title,txt,buy='Okay'){ $('modalTitle').textContent=title;$('modalText').textContent=txt;$('modalBuy').textContent=buy;$('modal').classList.add('open')}$('modalClose').onclick=()=>$('modal').classList.remove('open');$('modalBuy').onclick=()=>{$('modal').classList.remove('open');if(!pro&&coins>=500){coins-=500;pro=true;$('membership').textContent='PRO · 24h';$('proBtn').textContent='✦ PRO ACTIVE';updateCoins();toast('PRO активирован на 24 часа!')}else if(!pro)toast('Не хватает BeatCoins')};$('proBtn').onclick=()=>modal('BEATFORGE PRO','PRO на 24 часа стоит 500 BeatCoins. Откроется доступ к AI Composer и дополнительным инструментам.','Unlock · 500 BC');$('shopBtn').onclick=()=>modal('Sound Shop','Магазин звуковых наборов появится в следующей версии.','Cool');
 $('exportBtn').onclick=()=>{audioInit();const rate=44100,duration=4,frames=rate*duration,buffer=new Float32Array(frames);const bpm=+$('bpm').value;for(let ti=0;ti<tracks.length;ti++){for(const s of tracks[ti].steps){const start=Math.floor((s*60/bpm/4)*rate);const len=Math.min(rate*.25,frames-start);for(let j=0;j<len;j++){const t=j/rate;let v=0;if(ti===0)v=Math.sin(2*Math.PI*(90-65*t)*t)*Math.exp(-t*18);else if(ti===1||ti===2||ti===5)v=(Math.random()*2-1)*Math.exp(-t*(ti===1?35:18))*(ti===5?.08:.13);else v=Math.sin(2*Math.PI*(ti===3?65:240)*t)*Math.exp(-t*5)*.16;buffer[start+j]+=v}}}const pcm=new DataView(new ArrayBuffer(44+frames*2));const write=(o,s)=>{for(let i=0;i<s.length;i++)pcm.setUint8(o+i,s.charCodeAt(i))};write(0,'RIFF');pcm.setUint32(4,36+frames*2,true);write(8,'WAVE');write(12,'fmt ');pcm.setUint32(16,16,true);pcm.setUint16(20,1,true);pcm.setUint16(22,1,true);pcm.setUint32(24,rate,true);pcm.setUint32(28,rate*2,true);pcm.setUint16(32,2,true);pcm.setUint16(34,16,true);write(36,'data');pcm.setUint32(40,frames*2,true);for(let i=0;i<frames;i++){const v=Math.max(-1,Math.min(1,buffer[i]*(+$('volume').value/100)));pcm.setInt16(44+i*2,v<0?v*32768:v*32767,true)}download(new Blob([pcm.buffer],{type:'audio/wav'}),'beatforge-demo.wav');toast('WAV demo exported')};
