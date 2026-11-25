@@ -1,292 +1,190 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DOORS 6 — Downtown</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>MINI GTA VI 3D — Leonida</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{overflow:hidden;background:#101722;font-family:Arial}
-canvas{display:block}
-#ui{
- position:fixed;top:20px;left:22px;
- color:white;pointer-events:none;
- text-shadow:0 2px 8px black;
-}
-#ui h1{font-size:25px;letter-spacing:4px}
-#ui span{color:#e8b75f}
-#info{
- position:fixed;bottom:20px;left:20px;
- color:#ddd;font-size:12px;
- background:#101722aa;padding:12px;
- border:1px solid #ffffff22;
-}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#8ec8df;color:#fff;font-family:Arial,Helvetica,sans-serif}canvas{display:block}
+#hud{position:fixed;inset:0;pointer-events:none}.panel{background:#08141bd9;border:1px solid #ffffff35;border-radius:11px;backdrop-filter:blur(7px);box-shadow:0 7px 24px #0004}
+#logo{position:absolute;top:12px;left:12px;padding:10px 13px;font-weight:1000;letter-spacing:1px}#logo b{color:#ffd45d}#logo small{display:block;color:#a9c3cb;font-size:8px;letter-spacing:2px;margin-top:3px}
+#stats{position:absolute;right:12px;top:12px;padding:10px 13px;text-align:right;font-size:12px;line-height:1.8;min-width:140px}#stats strong{color:#ffdb69}
+#mission{position:absolute;left:12px;top:72px;padding:12px;width:min(300px,calc(100vw - 24px))}.eyebrow{font-size:9px;letter-spacing:2px;color:#ffd45d;font-weight:900}#mission h3{margin:5px 0;font-size:15px}#mission p{margin:0;color:#c4d4db;font-size:11px;line-height:1.4}
+#map{position:absolute;right:12px;top:105px;width:140px;height:140px;border:1px solid #ffffff55;border-radius:10px;background:#10231d}
+#hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);padding:9px 13px;font-size:11px;white-space:nowrap}
+#buttons,#right{position:absolute;bottom:12px;display:flex;gap:7px;pointer-events:auto}#buttons{left:12px}#right{right:12px}
+button{border:1px solid #ffffff30;border-radius:9px;background:#142832;color:white;padding:10px 12px;font-weight:800;font-size:11px}button:active{transform:scale(.96)}.gold{background:#f0ca62;color:#171b1c;border:0}
+#touch{display:none;position:absolute;bottom:75px;left:12px;gap:5px;pointer-events:auto}#touch button{width:47px;height:47px;border-radius:50%;padding:0;font-size:18px;background:#122a36d9}
+#toast{position:absolute;top:48%;left:50%;transform:translate(-50%,-50%);padding:12px 17px;background:#09151deF;border:1px solid #fff4;border-radius:10px;opacity:0;transition:opacity .2s;font-weight:bold;text-align:center;max-width:85vw}
+#dialog{display:none;position:absolute;bottom:78px;left:50%;transform:translateX(-50%);width:min(510px,calc(100vw - 24px));padding:13px 15px;pointer-events:auto}#speaker{color:#ffd45d;font-size:10px;letter-spacing:1px;font-weight:bold}#line{font-size:13px;line-height:1.4;margin:7px 0 10px}#next{float:right}
+#overlay,#garage{position:fixed;inset:0;z-index:4;background:#061017eF;display:flex;align-items:center;justify-content:center;padding:18px}
+.modal{width:min(580px,100%);padding:24px;background:linear-gradient(145deg,#1c3943,#0b1820);border:1px solid #ffffff30;border-radius:17px;box-shadow:0 20px 80px #0008}
+h1{font-size:clamp(32px,8vw,55px);letter-spacing:-2px;margin:7px 0 10px}h1 span{color:#ffd45d}.muted{font-size:13px;color:#bfd0d7;line-height:1.5}.features{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}.features div{padding:10px;border:1px solid #ffffff18;background:#ffffff0a;border-radius:8px;font-size:12px}.primary{width:100%;padding:14px;background:#f1ca62;color:#151a1c;border:0;font-size:13px}
+#garage{display:none}.garageBox{width:min(430px,100%);padding:20px;background:#10232c;border:1px solid #fff3;border-radius:15px}.carrow{display:flex;justify-content:space-between;align-items:center;padding:11px;background:#ffffff0b;border-radius:9px;margin:8px 0}.carrow small{display:block;color:#aabcc3;margin-top:4px}
+@media(max-width:650px){#map{width:100px;height:100px;top:155px}#mission{width:calc(100vw - 132px);min-width:125px;top:72px}#mission h3{font-size:12px}#mission p{font-size:10px}#stats{min-width:105px;font-size:10px}#hint{bottom:70px;white-space:normal;text-align:center;width:78%;font-size:10px}#touch{display:flex}#buttons,#right{bottom:10px}#buttons button,#right button{padding:8px;font-size:9px}#dialog{bottom:137px}}
 </style>
 </head>
 <body>
-
-<div id="ui">
-<h1>DOORS <span>6</span></h1>
-<p>DOWNTOWN • LOST CITY</p>
+<div id="hud">
+ <div id="logo" class="panel">MINI <b>GTA VI</b><small>LEONIDA · 3D OPEN WORLD</small></div>
+ <div id="stats" class="panel">💵 <strong id="cash">$2,500</strong><br>РОЗЫСК: <strong id="stars">☆☆☆☆☆</strong><br><span id="vehicle">Пешком</span></div>
+ <div id="mission" class="panel"><div class="eyebrow">СЮЖЕТ · ГЛАВА 1</div><h3 id="missionName">Новая жизнь</h3><p id="missionDesc">Найди Люсию возле набережной.</p></div>
+ <canvas id="map" width="160" height="160"></canvas>
+ <div id="hint" class="panel">WASD — движение · Мышь — камера · E — действие · M — гараж · Shift — бег</div>
+ <div id="buttons"><button id="garageBtn">🚘 ГАРАЖ</button><button id="resetCam">↻ КАМЕРА</button></div>
+ <div id="right"><button id="act" class="gold">E · ДЕЙСТВИЕ</button></div>
+ <div id="touch"><button data-k="a">◀</button><button data-k="w">▲</button><button data-k="s">▼</button><button data-k="d">▶</button></div>
+ <div id="toast"></div>
+ <div id="dialog" class="panel"><div id="speaker">JASON</div><div id="line"></div><button id="next" class="gold">ДАЛЕЕ →</button></div>
 </div>
-<div id="info">DOWNTOWN DISTRICT | CITY ENVIRONMENT v0.1</div>
-
-<script type="module">
-import * as THREE from
-'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
-
-const scene=new THREE.Scene();
-scene.background=new THREE.Color(0x8799aa);
-scene.fog=new THREE.FogExp2(0x8799aa,0.0018);
-
-const camera=new THREE.PerspectiveCamera(
-65,innerWidth/innerHeight,0.1,1000
-);
-camera.position.set(95,75,115);
-camera.lookAt(0,15,0);
-
-const renderer=new THREE.WebGLRenderer({
-antialias:true
-});
-renderer.setSize(innerWidth,innerHeight);
-renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-renderer.shadowMap.enabled=true;
-renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-renderer.toneMapping=THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure=1.15;
-document.body.appendChild(renderer.domElement);
-
-// LIGHTING
-scene.add(new THREE.HemisphereLight(0xc9ddff,0x30333b,2));
-
-const sun=new THREE.DirectionalLight(0xffe2b5,3);
-sun.position.set(-100,160,80);
-sun.castShadow=true;
-sun.shadow.mapSize.set(4096,4096);
-sun.shadow.camera.left=-180;
-sun.shadow.camera.right=180;
-sun.shadow.camera.top=180;
-sun.shadow.camera.bottom=-180;
-scene.add(sun);
-
-// MATERIALS
-function material(color,roughness=.7,metalness=.1){
-return new THREE.MeshStandardMaterial({
-color,roughness,metalness
-});
+<div id="overlay"><div class="modal">
+ <div class="eyebrow">THREE-DIMENSIONAL FAN GAME</div><h1>MINI <span>GTA VI</span></h1>
+ <p class="muted">Добро пожаловать в Леониду. Теперь город, автомобили и персонажи полностью трёхмерные. Исследуй побережье, выполняй сюжетные поручения Джейсона и Люсии, покупай машины и уходи от полиции.</p>
+ <div class="features"><div>🧍 Объёмные 3D-персонажи</div><div>🎥 Камера от третьего лица</div><div>🌴 3D-город и пляж</div><div>🚗 Машины с салоном</div><div>🚔 Полиция и розыск</div><div>🎯 Сюжет и диалоги</div></div>
+ <p class="muted" style="font-size:10px">Фанатская самостоятельная игра, не официальный продукт Rockstar Games. Для загрузки Three.js требуется подключение к интернету.</p>
+ <button id="start" class="primary">НАЧАТЬ ИГРУ</button>
+</div></div>
+<div id="garage"><div class="garageBox"><div class="eyebrow">VICE CITY AUTO WORKS</div><h2>ГАРАЖ</h2><div id="carList"></div><button id="closeGarage" style="width:100%;margin-top:8px">ЗАКРЫТЬ</button></div></div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+(()=>{
+if(!window.THREE){document.getElementById('missionDesc').textContent='Не удалось загрузить 3D-движок. Проверь интернет и перезагрузи страницу.';return}
+const T=THREE,scene=new T.Scene();scene.background=new T.Color(0x8ec9df);scene.fog=new T.Fog(0x8ec9df,100,520);
+const camera=new T.PerspectiveCamera(65,innerWidth/innerHeight,.1,1200);
+const renderer=new T.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;document.body.insertBefore(renderer.domElement,document.getElementById('hud'));
+scene.add(new T.HemisphereLight(0xc9eaff,0x536044,2.0));const sun=new T.DirectionalLight(0xffe3b0,3.0);sun.position.set(-120,180,90);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.left=-180;sun.shadow.camera.right=180;sun.shadow.camera.top=180;sun.shadow.camera.bottom=-180;scene.add(sun);
+const mat=(color,rough=.8,metal=0)=>new T.MeshStandardMaterial({color,roughness:rough,metalness:metal});
+const mats={grass:mat(0x508653),asphalt:mat(0x343b40),side:mat(0xb5aa91),line:mat(0xe3d4a3),sand:mat(0xdcc38d),water:mat(0x27899a,.35),white:mat(0xe9e9dc),glass:mat(0x315665,.28,.15),dark:mat(0x20282c),skin:mat(0xb77c5c),hair:mat(0x30241e),shirt:mat(0xd8d0bd),pants:mat(0x34434d)};
+const ground=new T.Mesh(new T.PlaneGeometry(1000,1000),mats.grass);ground.rotation.x=-Math.PI/2;ground.position.y=-.08;ground.receiveShadow=true;scene.add(ground);
+const WORLD=600,ROAD=24,GRID=100;
+function box(parent,w,h,d,material,x,y,z){let o=new T.Mesh(new T.BoxGeometry(w,h,d),material);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}
+function cyl(parent,r1,r2,h,material,x,y,z,segments=12){let o=new T.Mesh(new T.CylinderGeometry(r1,r2,h,segments),material);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}
+function sphere(parent,r,material,x,y,z,scale){let o=new T.Mesh(new T.SphereGeometry(r,12,10),material);o.position.set(x,y,z);if(scale)o.scale.set(...scale);o.castShadow=true;parent.add(o);return o}
+function makePalm(x,z,s=1){let g=new T.Group();g.position.set(x,0,z);scene.add(g);cyl(g,.38*s,.55*s,5*s,mat(0x79553a),0,2.5*s,0,8);for(let i=0;i<7;i++){let a=i*Math.PI*2/7,leaf=box(g,1.1*s,.13*s,5*s,mat(0x24744e),Math.sin(a)*1.5*s,5*s,Math.cos(a)*1.5*s);leaf.rotation.y=a;leaf.rotation.x=-.16}sphere(g,.5*s,mat(0x28784c),0,5*s,0,[1, .5,1])}
+function makeBuilding(x,z,w,d,h,color){
+ let g=new T.Group();g.position.set(x,0,z);scene.add(g);box(g,w,h,d,mat(color),0,h/2,0);box(g,w+1,.6,d+1,mat(0x6c716c),0,h+.3,0);
+ // rows of windows on visible facades
+ const win=mat(0x5a8b9a,.3,.15),frame=mat(0xe0d9c5);
+ for(let y=2;y<h-1;y+=3.2){for(let xx=-w/2+1.5;xx<w/2-1;xx+=3){box(g,1.25,1.5,.12,frame,xx,y,d/2+.07);box(g,1.0,1.25,.1,win,xx,y,d/2+.15);box(g,1.25,1.5,.12,frame,xx,y,-d/2-.07);box(g,1.0,1.25,.1,win,xx,y,-d/2-.15)}
+ for(let zz=-d/2+1.5;zz<d/2-1;zz+=3){box(g,.12,1.5,1.2,frame,w/2+.07,y,zz);box(g,.1,1.25,1,win,w/2+.15,y,zz);box(g,.12,1.5,1.2,frame,-w/2-.07,y,zz);box(g,.1,1.25,1,win,-w/2-.15,y,zz)}}
+ // rooftop HVAC units
+ for(let i=0;i<Math.max(1,Math.floor(w/14));i++){let unit=box(g,3,1.4,2.5,mat(0x777f7c),-w/2+5+i*7,h+1,0);unit.castShadow=true}
 }
-
-const asphalt=material(0x252d37,.24,.35);
-const concrete=material(0x777d83,.9);
-const glass=material(0x38566c,.12,.85);
-const darkGlass=material(0x172c40,.16,.8);
-const white=material(0xc2c5c7);
-const gold=material(0xb69a67,.4,.6);
-
-// OBJECT CREATION
-function cube(w,h,d,mat,x,y,z){
-const mesh=new THREE.Mesh(
-new THREE.BoxGeometry(w,h,d),mat
-);
-mesh.position.set(x,y,z);
-mesh.castShadow=true;
-mesh.receiveShadow=true;
-scene.add(mesh);
-return mesh;
+function makeCity(){
+ // roads and sidewalks grid
+ for(let k=-3;k<=3;k++){let p=k*GRID;
+ box(scene,ROAD,.08,680,mats.side,p,.01,0);box(scene,ROAD-2,.09,680,mats.asphalt,p,.06,0);
+ box(scene,680,.08,ROAD,mats.side,0,.01,p);box(scene,680,.09,ROAD-2,mats.asphalt,0,.06,p);
+ for(let q=-320;q<330;q+=20){box(scene,.22,.1,5,mats.line,p,.13,q);box(scene,5,.1,.22,mats.line,q,.13,p)}
+ }
+ // city blocks, varied buildings, plazas and parks
+ const colors=[0xc4a98a,0x9baaa5,0xd1bd91,0x879c9a,0xb98e80,0xd2c9ad,0xb6a2a0];
+ for(let x=-3;x<=2;x++)for(let z=-3;z<=2;z++){
+ let cx=x*GRID+50,cz=z*GRID+50;if(Math.random()<.17){let park=box(scene,65,.25,65,mat(0x3c8050),cx,.08,cz);for(let i=0;i<6;i++)makePalm(cx+Math.random()*50-25,cz+Math.random()*50-25,.65);continue}
+ let w=24+Math.random()*24,d=24+Math.random()*25,h=12+Math.random()*42;makeBuilding(cx,cz,w,d,h,colors[Math.floor(Math.random()*colors.length)]);
+ }
+ // boulevard palms
+ for(let i=-3;i<=3;i++)for(let j=-3;j<=3;j++)if(Math.random()<.78)makePalm(i*GRID+34,j*GRID+34,.7+Math.random()*.35);
+ // beach and sea at south edge
+ let beach=box(scene,700,.12,90,mats.sand,0,.02,340);let sea=box(scene,1000,.2,250,mats.water,0,-.12,500);
+ for(let i=0;i<18;i++){let x=-320+i*38,z=320+Math.random()*55;let umb=cyl(scene,2.2,2.2,.16,mat([0xd65e4d,0xe9ce72,0x5f9dac][i%3]),x,1,z,16);cyl(scene,.12,.12,2,mat(0x745337),x,.1,z,8)}
 }
-
-// GROUND
-cube(500,2,500,material(0x44494d),0,-2,0);
-
-// ROADS
-cube(500,.2,38,asphalt,0,-.8,0);
-cube(38,.2,500,asphalt,0,-.8,0);
-
-// ROAD MARKINGS
-const lines=material(0xe1d4a8);
-for(let i=-230;i<=230;i+=12){
-cube(5,.04,.25,lines,i,-.68,0);
-cube(.25,.04,5,lines,0,-.68,i);
+makeCity();
+function makeCharacter({name='NPC',skin=0xb77c5c,hair=0x30241e,shirt=0x3c8192,pants=0x303b43,female=false}={}){
+ let root=new T.Group(),body=new T.Group();root.add(body);scene.add(root);
+ const skinM=mat(skin),hairM=mat(hair),shirtM=mat(shirt),pantsM=mat(pants),shoe=mat(0x202326);
+ // legs, pelvis, torso, neck, head, hair cap
+ let legL=box(body,.25,.85,.28,pantsM,-.18,.66,0),legR=box(body,.25,.85,.28,pantsM,.18,.66,0);box(body,.55,.3,.34,pantsM,0,1.15,0);
+ let torso=new T.Mesh(new T.CapsuleGeometry(female?.34:.39,.65,4,8),shirtM);torso.position.y=1.72;torso.castShadow=true;body.add(torso);
+ cyl(body,.11,.11,.18,skinM,0,2.15,0,8);
+ sphere(body,.29,skinM,0,2.48,0,[.85,1.1,.85]);
+ // hair back and cap
+ sphere(body,.30,hairM,0,2.64,-.06,[.9,.6,1]);if(female){let back=sphere(body,.25,hairM,0,2.42,-.2,[1.1,1.5,.65])}
+ // ears and facial features on front (+Z)
+ sphere(body,.045,skinM,-.27,2.48,.01);sphere(body,.045,skinM,.27,2.48,.01);
+ let eye=mat(0x1b2020);sphere(body,.035,eye,-.095,2.51,.245,[.7,1,.5]);sphere(body,.035,eye,.095,2.51,.245,[.7,1,.5]);
+ let armL=new T.Group(),armR=new T.Group();armL.position.set(-.46,1.98,0);armR.position.set(.46,1.98,0);body.add(armL,armR);
+ let al=box(armL,.2,.75,.22,shirtM,0,-.34,0),ar=box(armR,.2,.75,.22,shirtM,0,-.34,0);sphere(armL,.12,skinM,0,-.75,.02);sphere(armR,.12,skinM,0,-.75,.02);
+ // shoes
+ box(body,.28,.16,.44,shoe,-.18,.16,.06);box(body,.28,.16,.44,shoe,.18,.16,.06);
+ return {root,body,legL,legR,armL,armR,name,walk:0,skinM,shirtM,pantsM};
 }
-
-// SIDEWALKS
-for(let i=-1;i<=1;i+=2){
-cube(500,.5,7,concrete,0,-.55,i*23);
-cube(7,.5,500,concrete,i*23,-.55,0);
+const jason=makeCharacter({name:'JASON',skin:0xc18a69,hair:0x3a2c25,shirt:0xc6c4b9,pants:0x34424a});
+const lucia=makeCharacter({name:'LUCIA',skin:0xc78d70,hair:0x30221d,shirt:0xc94e48,pants:0x373542,female:true});
+jason.root.position.set(-25,0,5);lucia.root.position.set(-145,0,-120);
+const npcs=[];for(let i=0;i<26;i++){let p=makeCharacter({skin:[0x9b654b,0xd5a17c,0xb77c5c][i%3],hair:[0x282421,0x654a32,0x252b35][i%3],shirt:[0xd45c48,0x3e8296,0xd3b75d,0x6d8b65,0x9b77a5][i%5],pants:[0x34434d,0x52443d,0xd0c6b1][i%3],female:i%4===0});p.root.position.set(-260+Math.random()*520,0,-250+Math.random()*500);p.dir=Math.random()*6.28;p.speed=.015+Math.random()*.012;npcs.push(p)}
+function makeCar(def,x,z,angle=0){
+ let root=new T.Group();root.position.set(x,0,z);root.rotation.y=angle;scene.add(root);
+ const paint=mat(def.color,.3,.45),glass=mat(0x294b5b,.2,.2),rubber=mat(0x15191b),metal=mat(0xb9c1c2,.3,.7);
+ // body chassis and hood/trunk
+ box(root,2.1,.58,4.5,paint,0,.72,0);box(root,1.75,.68,2.35,paint,0,1.23,-.15);
+ // windows and roof
+ box(root,1.68,.58,1.95,glass,0,1.48,-.18);box(root,1.72,.12,1.9,paint,0,1.8,-.18);
+ box(root,1.8,.12,.7,paint,0,1.15,1.45);box(root,1.8,.12,.65,paint,0,1.15,-1.9);
+ // bumpers, lights
+ box(root,2.12,.18,.16,metal,0,.62,2.28);box(root,2.12,.18,.16,metal,0,.62,-2.28);
+ for(let s of [-1,1]){box(root,.36,.2,.08,mat(0xf5e8bf),s*.72,.78,2.29);box(root,.35,.2,.08,mat(0xb83c36),s*.72,.78,-2.29)}
+ const wheels=[];for(let xw of [-1.08,1.08])for(let zw of [-1.45,1.45]){let w=cyl(root,.42,.42,.24,rubber,xw,.48,zw,16);w.rotation.z=Math.PI/2;let hub=cyl(root,.22,.22,.255,metal,xw,.48,zw,12);hub.rotation.z=Math.PI/2;wheels.push(w,hub)}
+ // visible seats/dash through glass
+ box(root,1.35,.22,.7,mat(0x272c30),0,1.02,-.15);box(root,.16,.48,.15,mat(0x151b1d),-.55,1.15,.8);box(root,.16,.48,.15,mat(0x151b1d),.55,1.15,.8);
+ return {root,wheels,def,speed:0,angle,occupied:false};
 }
-
-// BUILDINGS
-let seed=12345;
-function random(){
-seed=(seed*1664525+1013904223)>>>0;
-return seed/4294967296;
-}
-
-const facadeColors=[
-0x667987,0x827f79,0x3b5263,
-0x9a9b98,0x384b59,0x716c68
+const defs=[
+{name:'Bravado Buffalo',color:0xb94238,speed:.42,cost:0},{name:'Dinka Blista',color:0x328fae,speed:.34,cost:650},{name:'Pegassi Tempesta',color:0xd7bd4c,speed:.55,cost:1800},{name:'Vapid Sandking',color:0x8d9b70,speed:.3,cost:950},{name:'Declasse Premier',color:0x8879aa,speed:.38,cost:450}
 ];
-
-function building(x,z,w,d,h){
-const color=facadeColors[
-Math.floor(random()*facadeColors.length)
-];
-const body=cube(w,h,d,material(color,.65,.35),
-x,h/2,z);
-
-// Roof
-cube(w+1,1,d+1,material(0x333b43),
-x,h+.5,z);
-
-// Roof equipment
-for(let i=0;i<3;i++){
-cube(2+random()*3,2+random()*3,
-2+random()*3,material(0x50575c),
-x+(random()-.5)*w*.6,
-h+2,z+(random()-.5)*d*.6);
+const cars=[];for(let i=0;i<12;i++){let x=-260+Math.random()*520,z=-260+Math.random()*520;cars.push(makeCar(defs[i%defs.length],x,z,Math.random()*6.28))}
+const policeCars=[];const copDef={name:'Police Cruiser',color:0xe6e9e6,speed:.45,cost:0};
+let active=false,cash=2500,wanted=0,mission=0,toastTimer,dialogues=[],dialogOpen=false;
+const missions=[
+{title:'Новая жизнь',desc:'Найди Люсию возле набережной.',x:-145,z:-120,reward:350,kind:'lucia'},
+{title:'Старая машина',desc:'Доберись до автомастерской на машине.',x:110,z:110,reward:550,kind:'drive'},
+{title:'Непростая просьба',desc:'Поговори с механиком у мастерской.',x:110,z:110,reward:700,kind:'mechanic'},
+{title:'Побережье ночью',desc:'Доедь до южного пирса.',x:-230,z:320,reward:1000,kind:'pier'},
+{title:'Леонида не спит',desc:'Кампания завершена. Исследуй город.',x:0,z:0,reward:0,kind:'free'}];
+const hero={x:-25,z:5,angle:0,car:null,model:jason};
+function notify(s){let el=document.getElementById('toast');el.textContent=s;el.style.opacity=1;clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.style.opacity=0,2100)}
+function hud(){document.getElementById('cash').textContent='$'+cash.toLocaleString('en-US');document.getElementById('stars').textContent='★'.repeat(wanted)+'☆'.repeat(5-wanted);document.getElementById('vehicle').textContent=hero.car?hero.car.def.name:'Пешком';document.getElementById('missionName').textContent=missions[mission].title;document.getElementById('missionDesc').textContent=missions[mission].desc}
+function say(lines){dialogues=lines;dialogOpen=true;showDialogue()}
+function showDialogue(){if(!dialogues.length){dialogOpen=false;document.getElementById('dialog').style.display='none';return}let a=dialogues.shift();document.getElementById('speaker').textContent=a[0];document.getElementById('line').textContent=a[1];document.getElementById('dialog').style.display='block'}
+document.getElementById('next').onclick=showDialogue;
+function complete(){cash+=missions[mission].reward;mission=Math.min(mission+1,missions.length-1);hud();notify('ЗАДАНИЕ ВЫПОЛНЕНО  +$'+missions[mission-1].reward)}
+function nearestCar(){let best=null,d=4;for(let car of cars){let n=Math.hypot(car.root.position.x-hero.x,car.root.position.z-hero.z);if(n<d){d=n;best=car}}return best}
+function interact(){
+ if(dialogOpen){showDialogue();return}
+ if(hero.car){let car=hero.car;hero.car=null;car.occupied=false;hero.model.root.visible=true;hero.x+=Math.sin(hero.angle)*2;hero.z+=Math.cos(hero.angle)*2;notify('Ты вышел из машины');hud();return}
+ let target=missions[mission],near=Math.hypot(hero.x-target.x,hero.z-target.z)<7;
+ if(near){
+ if(target.kind==='lucia'){say([['LUCIA','Джейсон. Я уже думала, ты не придёшь.'],['JASON','Дороги сегодня забиты. Что случилось?'],['LUCIA','Есть работа. Но сначала нам нужна машина.']]);complete();return}
+ if(target.kind==='drive'){say([['JASON','Похоже, приехали.'],['LUCIA','Механик должен быть у ворот.']]);complete();return}
+ if(target.kind==='mechanic'){say([['МЕХАНИК','Старушка ещё поездит. Только не разбей её.'],['JASON','Постараюсь.'],['LUCIA','Нас ждут на южном пирсе.']]);complete();return}
+ if(target.kind==='pier'){say([['LUCIA','Кажется, мы влипли глубже, чем думали.'],['JASON','Тогда будем выбираться вместе.']]);complete();return}}
+ let car=nearestCar();if(car){hero.car=car;car.occupied=true;hero.model.root.visible=false;notify('Ты за рулём: '+car.def.name);hud();return}
+ if(Math.hypot(hero.x-110,hero.z-110)<22){openGarage();return}notify('Подойди ближе к машине или золотому маркеру')}
+function openGarage(){let list=document.getElementById('carList');list.innerHTML='';defs.forEach(def=>{let row=document.createElement('div');row.className='carrow';row.innerHTML=`<div><b style="color:#f0cc62">●</b> ${def.name}<small>${def.cost?'Цена $'+def.cost:'Стартовый автомобиль'} · 3D-модель</small></div><button>${def.cost?'КУПИТЬ':'ВЫЗВАТЬ'}</button>`;row.querySelector('button').onclick=()=>{if(cash<def.cost){notify('Не хватает денег');return}cash-=def.cost;let car=makeCar(def,-240+Math.random()*480,-240+Math.random()*480);cars.push(car);document.getElementById('garage').style.display='none';notify(def.name+' доставлен');hud()};list.appendChild(row)});document.getElementById('garage').style.display='flex'}
+document.getElementById('garageBtn').onclick=openGarage;document.getElementById('closeGarage').onclick=()=>document.getElementById('garage').style.display='none';document.getElementById('act').onclick=interact;
+document.getElementById('start').onclick=()=>{active=true;document.getElementById('overlay').style.display='none';hud();say([['JASON','Ну вот мы и в Вайс-Сити.'],['LUCIA','Не расслабляйся. Встретимся у закусочной.']])};
+let yaw=0,pitch=.24,drag=false,px=0,py=0;renderer.domElement.addEventListener('pointerdown',e=>{drag=true;px=e.clientX;py=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)});renderer.domElement.addEventListener('pointermove',e=>{if(!drag)return;yaw-=(e.clientX-px)*.006;pitch=Math.max(.05,Math.min(.75,pitch+(e.clientY-py)*.003));px=e.clientX;py=e.clientY});renderer.domElement.addEventListener('pointerup',()=>drag=false);document.getElementById('resetCam').onclick=()=>{yaw=0;pitch=.24};
+const keys={};addEventListener('keydown',e=>{let k=e.key.toLowerCase();keys[k]=true;if(k==='e'&&!e.repeat&&active)interact();if(k==='m'&&!e.repeat&&active)openGarage();if(k.startsWith('arrow'))e.preventDefault()});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
+document.querySelectorAll('#touch button').forEach(b=>{let k=b.dataset.k;b.addEventListener('pointerdown',e=>{keys[k]=true;b.setPointerCapture(e.pointerId)});['pointerup','pointercancel','lostpointercapture'].forEach(ev=>b.addEventListener(ev,()=>keys[k]=false))});
+function update(dt){
+ let forward=(keys.w||keys.arrowup?1:0)-(keys.s||keys.arrowdown?1:0),side=(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0),fast=keys.shift;
+ if(hero.car){let car=hero.car;car.speed+=(forward>0?.008:-.012)*dt*forward;if(forward===0)car.speed*=Math.pow(.97,dt);car.speed=Math.max(-.18,Math.min(car.def.speed*(fast?1.4:1),car.speed));car.angle-=side*.035*dt*(.4+Math.abs(car.speed));car.root.rotation.y=car.angle;car.root.position.x+=Math.sin(car.angle)*car.speed*dt*2.2;car.root.position.z+=Math.cos(car.angle)*car.speed*dt*2.2;car.wheels.forEach(w=>w.rotation.x+=car.speed*dt);hero.x=car.root.position.x;hero.z=car.root.position.z;hero.angle=car.angle;
+  if(Math.abs(car.speed)>.34&&Math.random()<.002*dt){wanted=Math.min(5,wanted+1);hud();notify('Полиция заметила нарушение')}}
+ else{let speed=fast?.15:.09,ang=hero.angle+yaw;hero.angle=ang;if(forward||side){let fx=Math.sin(ang)*forward+Math.cos(ang)*side,fz=Math.cos(ang)*forward-Math.sin(ang)*side;let l=Math.hypot(fx,fz)||1;hero.x+=fx/l*speed*dt;hero.z+=fz/l*speed*dt;hero.model.walk+=dt*.18;hero.model.legL.rotation.x=Math.sin(hero.model.walk)*.55;hero.model.legR.rotation.x=-Math.sin(hero.model.walk)*.55;hero.model.armL.rotation.x=-Math.sin(hero.model.walk)*.38;hero.model.armR.rotation.x=Math.sin(hero.model.walk)*.38}else{hero.model.legL.rotation.x*=.8;hero.model.legR.rotation.x*=.8;hero.model.armL.rotation.x*=.8;hero.model.armR.rotation.x*=.8}hero.model.root.position.set(hero.x,0,hero.z);hero.model.root.rotation.y=hero.angle}
+ hero.x=Math.max(-320,Math.min(320,hero.x));hero.z=Math.max(-320,Math.min(320,hero.z));
+ for(let p of npcs){p.root.position.x+=Math.sin(p.dir)*p.speed*dt;p.root.position.z+=Math.cos(p.dir)*p.speed*dt;if(Math.abs(p.root.position.x)>300||Math.abs(p.root.position.z)>300)p.dir+=Math.PI;p.root.rotation.y=p.dir;p.walk+=dt*.08;p.legL.rotation.x=Math.sin(p.walk)*.3;p.legR.rotation.x=-Math.sin(p.walk)*.3}
+ if(wanted>0&&policeCars.length<wanted){let a=Math.random()*6.28,car=makeCar(copDef,hero.x+Math.sin(a)*55,hero.z+Math.cos(a)*55);policeCars.push(car)}
+ for(let p of policeCars){let dx=hero.x-p.root.position.x,dz=hero.z-p.root.position.z,a=Math.atan2(dx,dz);p.angle=a;p.root.rotation.y=a;p.root.position.x+=Math.sin(a)*.11*dt;p.root.position.z+=Math.cos(a)*.11*dt;if(Math.hypot(dx,dz)<3){wanted=0;policeCars.forEach(q=>scene.remove(q.root));policeCars.length=0;notify('Полиция задержала тебя. Розыск сброшен.');hud();break}}
+ if(wanted&&Math.random()<.00025*dt){wanted--;hud()}
 }
-
-// Windows on front and back
-for(let y=3;y<h-2;y+=3.5){
-for(let xx=-w/2+2;xx<w/2-1;xx+=3){
-const winMat=random()>.35?
-glass:darkGlass;
-
-cube(1.7,2,.12,winMat,
-x+xx,y,z+d/2+.07);
-
-cube(1.7,2,.12,winMat,
-x+xx,y,z-d/2-.07);
-}
-}
-
-// Side windows
-for(let y=3;y<h-2;y+=3.5){
-for(let zz=-d/2+2;zz<d/2-1;zz+=3){
-cube(.12,2,1.7,glass,
-x+w/2+.07,y,z+zz);
-cube(.12,2,1.7,glass,
-x-w/2-.07,y,z+zz);
-}
-}
-
-// Decorative facade columns
-for(let xx=-w/2;xx<=w/2;xx+=w/4){
-cube(.25,h,.25,white,x+xx,h/2,z+d/2+.15);
-}
-}
-
-// CITY GRID
-for(let x=-125;x<=125;x+=48){
-for(let z=-125;z<=125;z+=48){
-
-if(Math.abs(x)<40||Math.abs(z)<40)continue;
-
-let w=25+random()*13;
-let d=25+random()*13;
-let h=35+random()*100;
-
-building(x+(random()-.5)*7,
-z+(random()-.5)*7,w,d,h);
-}
-}
-
-// MAIN TALL TOWERS
-building(-65,-65,32,32,145);
-building(65,-65,35,35,120);
-building(-65,65,30,35,105);
-building(65,65,38,30,155);
-
-// PALM TREES
-function palm(x,z){
-const trunkMat=material(0x76563b);
-const trunk=new THREE.Mesh(
-new THREE.CylinderGeometry(.45,.7,9,9),
-trunkMat
-);
-trunk.position.set(x,4.5,z);
-trunk.castShadow=true;
-scene.add(trunk);
-
-const leaves=material(0x245c3d);
-for(let i=0;i<8;i++){
-const angle=i*Math.PI/4;
-const leaf=new THREE.Mesh(
-new THREE.ConeGeometry(1.2,8,6),
-leaves
-);
-leaf.position.set(
-x+Math.sin(angle)*2,
-8.5,
-z+Math.cos(angle)*2
-);
-leaf.rotation.z=Math.cos(angle)*.8;
-leaf.rotation.x=Math.sin(angle)*.8;
-scene.add(leaf);
-}
-}
-
-for(let i=-180;i<=180;i+=15){
-palm(i,27);
-palm(i,-27);
-}
-
-// STREET LIGHTS
-for(let i=-180;i<=180;i+=25){
-for(let side of [-1,1]){
-const pole=cube(.25,8,.25,
-material(0x30363a),i,4,side*30);
-
-const lamp=new THREE.PointLight(0xffd29a,1.5,30);
-lamp.position.set(i,8,side*30);
-scene.add(lamp);
-
-cube(1,.25,1,gold,i,8,side*30);
-}
-}
-
-// FOUNTAIN PLAZA
-cube(25,.8,25,concrete,0,.1,-85);
-const water=new THREE.Mesh(
-new THREE.CylinderGeometry(8,8,.6,48),
-new THREE.MeshStandardMaterial({
-color:0x2b819b,
-roughness:.08,
-metalness:.6
-})
-);
-water.position.set(0,.8,-85);
-scene.add(water);
-
-const fountainLight=new THREE.PointLight(0x6bbce8,3,35);
-fountainLight.position.set(0,5,-85);
-scene.add(fountainLight);
-
-// SKY DECORATION
-const skyGeo=new THREE.SphereGeometry(450,32,32);
-const skyMat=new THREE.MeshBasicMaterial({
-color:0x839db7,side:THREE.BackSide
-});
-scene.add(new THREE.Mesh(skyGeo,skyMat));
-
-// CAMERA ANIMATION
-let angle=0;
-function animate(){
-requestAnimationFrame(animate);
-angle+=.00035;
-camera.position.x=95*Math.cos(angle);
-camera.position.z=115*Math.sin(angle);
-camera.lookAt(0,25,0);
-renderer.render(scene,camera);
-}
-animate();
-
-addEventListener('resize',()=>{
-camera.aspect=innerWidth/innerHeight;
-camera.updateProjectionMatrix();
-renderer.setSize(innerWidth,innerHeight);
-});
+function marker(){let t=missions[mission],o=scene.getObjectByName('missionMarker');if(!o){o=new T.Group();o.name='missionMarker';scene.add(o);let ring=new T.Mesh(new T.TorusGeometry(2,.16,8,24),mat(0xffd65a,.4,.2));ring.rotation.x=Math.PI/2;ring.position.y=.12;o.add(ring);let beam=new T.Mesh(new T.CylinderGeometry(.08,.08,5,8),new T.MeshBasicMaterial({color:0xffd65a,transparent:true,opacity:.5}));beam.position.y=2.6;o.add(beam)}o.position.set(t.x,0,t.z);o.children[0].rotation.z=performance.now()*.001}
+function minimap(){let el=document.getElementById('map'),g=el.getContext('2d');g.fillStyle='#1b493d';g.fillRect(0,0,160,160);g.fillStyle='#7c8980';for(let x=-300;x<=300;x+=GRID)g.fillRect((x+300)/600*160-3,0,6,160);for(let z=-300;z<=300;z+=GRID)g.fillRect(0,(z+300)/600*160-3,160,6);g.fillStyle='#ffd45d';g.beginPath();g.arc((missions[mission].x+300)/600*160,(missions[mission].z+300)/600*160,4,0,7);g.fill();g.fillStyle='white';g.beginPath();g.arc((hero.x+300)/600*160,(hero.z+300)/600*160,4,0,7);g.fill()}
+function render(t){requestAnimationFrame(render);let dt=Math.min(2,(t-(render.last||t))/16.67||1);render.last=t;if(active){if(!dialogOpen)update(dt);marker();minimap()}
+ const target=new T.Vector3(hero.x,hero.car?2:1.7,hero.z),distance=hero.car?12:9,angle=hero.car?hero.angle:hero.angle+yaw;
+ let desired=new T.Vector3(target.x-Math.sin(angle)*distance, target.y+distance*(.18+pitch),target.z-Math.cos(angle)*distance);camera.position.lerp(desired,.12);camera.lookAt(target.x,target.y+.8,target.z);
+ renderer.render(scene,camera)}
+requestAnimationFrame(render);
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+hud();
+})();
 </script>
-</body>
-</html>
-
+</body></html>
